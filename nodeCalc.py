@@ -13,13 +13,20 @@ size = comm.Get_size()
 
 if rank == 0:
     num = 1
-    
-    while True:
+    count = 0
+
+    start = time.time()
+
+    while count < 1000000:
         node = rand.randint(1,size-1)
         comm.send(num,dest=node)
         num = comm.recv(source=node)
-        print(num)
+        count+=1
+        #print(num)
         #time.sleep(1)
+
+    end = time.time()
+    print(end-start)
 
 
 
