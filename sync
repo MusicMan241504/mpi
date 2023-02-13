@@ -4,5 +4,5 @@ nodes=$(cat ~/hosts | awk '{if(NR>1)print $1}')
 for node in $nodes
 	do
 		echo $node
-		scp -r * $node:~/
+		scp -r * $node:~/Documents/mpi
 done
