@@ -9,7 +9,7 @@ size = comm.Get_size()
 
 
 if rank == 0:
-    num = [0 for i in range(1000000)]
+    num = 1
     for i in range(1,size):
         start = time.time_ns()
         for j in range(1000):
