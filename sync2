@@ -1,8 +1,18 @@
 #!/bin/bash
 
 nodes=$(cat ~/hosts | awk '{if(NR>1)print $1}')
-for node in $nodes
-	do
-		echo $node
-		rsync -az --delete -e ssh . $node:~/Documents/mpi
+while true; do
+	inotifywait -qr --exclude "/\." -e modify,create,delete,move,attrib .
+	for node in $nodes; do
+		#echo $node
+		rsync -az --delete --exclude=.* --delete-excluded -e ssh . $node:~/Documents/mpi
+		#can use --info=name to output names of files being synced
+	done
+	#output a finished statement
+	beg=$(($COLUMNS/2-2))
+	fin=$(($COLUMNS-$beg-4))
+	printf "%0.s-" $(seq 1 $beg)
+	printf "DONE"
+	printf "%0.s-" $(seq 1 $fin)
+	printf "\n"
 done
